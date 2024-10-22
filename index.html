@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Reader</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: #f5f5f5;
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+#app {
+background-color: white;
+padding: 20px;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+max-width: 500px;
+width: 100%;
+text-align: center;
+}
+h1 {
+font-size: 24px;
+margin-bottom: 20px;
+}
+input {
+width: 100%;
+padding: 10px;
+margin: 10px 0;
+border-radius: 4px;
+border: 1px solid #ccc;
+font-size: 16px;
+}
+button {
+width: 100%;
+padding: 10px;
+background-color: #4CAF50;
+color: white;
+font-size: 16px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+button:hover {
+background-color: #45a049;
+}
+.output-container {
+margin-top: 20px;
+padding: 20px;
+background-color: #333;
+color: white;
+border-radius: 8px;
+font-family: monospace;
+max-height: 300px;
+overflow-y: auto;
+text-align: left;
+}
+.output-container h3 {
+margin-top: 0;
+}
+</style>
+</head>
+<body>
+<div id="app">
+<h1>File Reader Application </h1>
+<input type="text" id="fileName" placeholder="Enter file name">
+<button onclick="readFile()">Read File</button>
+<div class="output-container" id="output">
+<h3>File Content:</h3>
+<pre id="fileContent">No file content yet.</pre>
+</div>
+</div>
+<script>
+async function readFile() {
+const fileName = document.getElementById('fileName').value;
+const response = await fetch(`/read-file?fileName=${fileName}`);
+const data = await response.json();
+if (data.success) {
+document.getElementById('fileContent').textContent = data.content;
+} else {
+document.getElementById('fileContent').textContent = 'Error reading the file.';
+}
+}
+</script>
+</body>
+</html>
